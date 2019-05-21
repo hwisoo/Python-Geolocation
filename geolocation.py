@@ -6,6 +6,8 @@ from urllib import request
 import json
 import folium
 
+
+
 try:
     data = json.load(request.urlopen('http://ipinfo.io/json'))
 
@@ -23,6 +25,10 @@ else:
     print('Lng: {}'.format(long))
 
 
-map = folium.Map(location=[lat, long], zoom_start=6, tiles='Stamen Terrain')
+map = folium.Map(location=[lat, long], zoom_start=6)
+tooltip = 'Your approximate location'
+folium.Marker([lat, long], popup='<i>'+data['city']+', '+ data['region']+ '</i>', tooltip=tooltip).add_to(map)
 map.save('location.html')
+
+
 
